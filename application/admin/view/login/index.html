@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gentelella Alela! | </title>
+    <!-- Bootstrap -->
+    <link href="__STATIC__/admin/bs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="__STATIC__/admin/bs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="__STATIC__/admin/bs/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom styling plus plugins -->
+    <link href="__STATIC__/admin/bs/custom.min.css" rel="stylesheet">
+    <!-- toastr.css -->
+    <link href="__STATIC__/admin/css/toastr.css" rel="stylesheet">
+</head>
+
+<body class="login">
+    <div>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form id="myForm">
+                        <h1>Login Form</h1>
+                        <div>
+                            <input type="text" class="form-control" name="name" placeholder="name"/>
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" name="password" placeholder="password" />
+                        </div>
+                        <div>
+                            <input class="btn btn-default" type="submit" value="Log in">
+                            <!-- <a class="btn btn-default submit" href="">Log in</a> -->
+                            <!-- <a class="reset_pass" href="#">Lost your password?</a> -->
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="separator">
+                            <!--                             <p class="change_link">New to site?
+                                <a href="#signup" class="to_register"> Create Account </a>
+                            </p> -->
+                            <div class="clearfix"></div>
+                            <br />
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Tsubasa</h1>
+                                <p>©2019 All Rights Reserved.</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- jQuery -->
+<script src="__STATIC__/admin/bs/jquery/dist/jquery.min.js"></script>
+<!-- toastr.js -->
+<script src="__STATIC__/admin/js/toastr.js"></script>
+<script type="text/javascript">
+  toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-top-center",
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }     
+$("#myForm").submit(function(e) {
+    var data = $("form").serialize();
+    $.ajax({
+        url: "{:url('admin/login/login')}",
+        data: data,
+        method: 'post',
+        dateType: 'json',
+        success: function(res) {
+            if (res.status == 0) {
+                toastr.success(res.message)
+                setTimeout(function() {
+                    window.location.href = "{:url('admin/index/index')}";
+                }, 2000);
+            } else {
+                toastr.error(res.message)
+            }
+        }
+    });
+    return false;
+})
+</script>
+
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{block name="title"}Gentelella Alela! |{/block} </title>
+    <!-- Bootstrap -->
+    <link href="__STATIC__/admin/bs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="__STATIC__/admin/bs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="__STATIC__/admin/bs/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="__STATIC__/admin/bs/switchery/dist/switchery.min.css" rel="stylesheet">    
+    <!-- iCheck -->
+    <link href="__STATIC__/admin/bs/iCheck/skins/flat/green.css" rel="stylesheet">  
+    <!-- fileinput.css -->
+    <link rel="stylesheet" href="__STATIC__/admin/bs/fileinput/css/bootstrap-fileinput.css" type="text/css">
+    <!-- Custom styling plus plugins -->
+    <link href="__STATIC__/admin/bs/custom.min.css" rel="stylesheet">
+    <!-- toastr.css -->
+    <link href="__STATIC__/admin/css/toastr.css" rel="stylesheet">
+    <!-- zTreeStyle.css -->
+    <link rel="stylesheet" href="__STATIC__/admin/css/zTreeStyle/zTreeStyle.css" type="text/css">        
+    {block name="style"}{/block}
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="{:url('admin/index/index')}" class="site_title"><i class="fa fa-paw"></i> <span>Tsubasa</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- 左边栏 -->
+                    {include file="public/sidebar" /}
+                    <!-- /左边栏 -->
+                </div>
+            </div>
+            <!-- 上部导航信息 -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="__STATIC__/images/admin/img.jpg" alt="">{$Think.session.admin.name}
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="javascript:;"> Profile</a></li>
+<!--                                     <li>
+                                        <a href="javascript:;">
+                                            <span class="badge bg-red pull-right">50%</span>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li> -->
+                                    <!-- <li><a href="javascript:;">Help</a></li> -->
+                                    <li><a href="{:url('admin/login/logout')}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                </ul>
+                            </li>
+<!--                             <li role="presentation" class="dropdown">
+                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-green">6</span>
+                                </a>
+                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                    <li>
+                                        <a>
+                                            <span class="image"><img src="__STATIC__/images/admin/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="text-center">
+                                            <a>
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /上部导航信息 -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>{block name="content-title"}{/block}</h3>
+                        </div>
+                        <div class="title_right">
+                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_content">
+                                    {block name="content"}{/block}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <!-- /page content -->
+            <!-- 底部信息 -->
+            <footer>
+                <div class="pull-right">
+                    copyright@2019 by <a href="{:url('admin/index/index')}">Tsubasa</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /底部信息 -->
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="__STATIC__/admin/bs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="__STATIC__/admin/bs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="__STATIC__/admin/bs/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="__STATIC__/admin/bs/nprogress/nprogress.js"></script>
+    <!-- Switchery -->
+    <script src="__STATIC__/admin/bs/switchery/dist/switchery.min.js"></script>
+    <!-- Switchery -->
+    <script src="__STATIC__/admin/bs/fileinput/js/bootstrap-fileinput.js"></script>    
+    <!-- Custom Theme Scripts -->
+    <script src="__STATIC__/admin/bs/custom.min.js"></script>
+    <!-- toastr.js -->
+    <script src="__STATIC__/admin/js/toastr.js"></script>
+    <!-- iCheck -->
+    <script src="__STATIC__/admin/bs/iCheck/icheck.min.js"></script>    
+    <script type="text/javascript">
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "positionClass": "toast-top-center",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }           
+    </script>
+    {block name="script"}{/block}
+</body>
+
+</html>

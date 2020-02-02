@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>api接口测试</title>
+ 
+</head>
+ 
+123
+<body>
+<script src="__STATIC__/admin/bs/jquery/dist/jquery.min.js"></script> 
+<script src="__STATIC__/admin/js/aes.js?v=3"></script>
+<script>
+/*PHP7以下版本*/
+/**
+ * 加密（需要先加载lib/aes/aes.min.js文件）
+ * @param word
+ * @returns {*}
+ */
+// function encrypt(word){
+//     var key = CryptoJS.enc.Utf8.parse("Tsubasa1234567891234567891234567");
+//     var srcs = CryptoJS.enc.Utf8.parse(word);
+//     var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+//     return encrypted.toString();
+// }
+// console.log(encrypt('abc'));
+/**
+ * 解密
+ * @param word
+ * @returns {*}
+ */
+// function decrypt(word){
+//     var key = CryptoJS.enc.Utf8.parse("Tsubasa1234567891234567891234567");
+//     var decrypt = CryptoJS.AES.decrypt(word, key, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+//     return CryptoJS.enc.Utf8.stringify(decrypt).toString();
+// }
+/*PHP7以上版本*/
+/**
+ * 加密（需要先加载lib/aes/aes.min.js文件）
+ * @param word
+ * @returns {*}
+ */
+function encrypt(word){
+    var key = CryptoJS.enc.Utf8.parse("Tsubasa1234567891234567891234567");
+    var iv = CryptoJS.enc.Utf8.parse('1234567812345678');
+    var srcs = CryptoJS.enc.Utf8.parse(word);
+    var encrypted = CryptoJS.AES.encrypt(srcs, key, {iv:iv,mode:CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7});
+    return encrypted.toString();
+}
+// console.log(encrypt('abc'));
+/**
+ * 解密
+ * @param word
+ * @returns {*}
+ */
+function decrypt(word){
+    var key = CryptoJS.enc.Utf8.parse("Tsubasa1234567891234567891234567");
+    var iv = CryptoJS.enc.Utf8.parse('1234567812345678');
+    var decrypt = CryptoJS.AES.decrypt(word, key, {iv:iv,mode:CryptoJS.mode.CBC,padding: CryptoJS.pad.Pkcs7});
+    return CryptoJS.enc.Utf8.stringify(decrypt).toString();
+}
+var time = Math.floor(new Date().getTime() / 1000);
+var version = 1;
+$.ajax({
+    headers: {
+        sign: encrypt("time=" + time + '&version=' + version),
+        version:version
+    },	
+	url: "/api/v1",
+	data: {},
+	method: 'post',
+	dataType: 'json',
+	success: function(res){
+		console.log(res)
+	}
+});
+</script>
+</body>
+</html>

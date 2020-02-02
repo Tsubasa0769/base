@@ -1,0 +1,62 @@
+<!-- 左边栏用户个信息 info -->
+<div class="profile clearfix">
+    <div class="profile_pic">
+        <img src="__STATIC__/images/admin/img.jpg" alt="..." class="img-circle profile_img">
+    </div>
+    <div class="profile_info">
+        <span>Welcome,</span>
+        <h2>{$Think.session.admin.name}</h2>
+    </div>
+</div>
+<!-- /左边栏用户个信息 info -->
+<br />
+<!-- 左边栏 -->
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <h3>General</h3>
+        <ul class="nav side-menu">
+            <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 概况 </a>
+            {volist name="menus" id="menu"}
+            {if (!empty($menu['child']))}
+            <li><a><i class="{$menu.icon}"></i> {$menu.name} <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    {volist name="menu['child']" id="menu2"}
+                    {if (!empty($menu2['child']))}
+                    <li><a>{$menu2.name}<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            {volist name="menu2['child']" id="menu3"}
+                            <li class="sub_menu"><a href="{:url($menu3['url'])}">{$menu3.name}</a>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </li>
+                    {else/}
+                    <li><a href="{:url($menu2['url'])}">{$menu2.name}</a>
+                    {/if}
+                    {/volist}
+                </ul>
+            </li>
+            {else/}
+            <li><a href="{:url($menu['url'])}"><i class="{$menu.icon}"></i> {$menu.name} </a>
+            {/if}
+            {/volist}
+        </ul>
+    </div>
+</div>
+<!-- /左边栏 -->
+<!-- /左边栏底部按钮 -->
+<div class="sidebar-footer hidden-small">
+    <a data-toggle="tooltip" data-placement="top" title="Settings">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Lock">
+        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+    </a>
+</div>
+<!-- /左边栏底部按钮 -->

@@ -1,0 +1,129 @@
+{extend name="public/main" /}
+{block name="title"}权限列表 - 管理后台{/block}
+{block name="content-title"}权限列表{/block}
+{block name="content"}
+    <ul id="myTab" class="nav nav-tabs bar_tabs">
+        <li class="active">
+            <a href="{:url('admin/permission/index')}">权限列表</a>
+        </li>
+        <li>
+            <a href="{:url('admin/permission/create')}">添加权限</a>
+        </li>
+    </ul>
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <th width="5%"></th>
+            <th>名称</th>
+            <th>图标</th>
+            <th>访问地址</th>
+            <th>是否显示</th>
+            <th>状态</th>
+            <th width="15%">创建日期</th>
+            <th width="10%">操作</th>
+        </tr>
+        {volist name="permissions" id="permission"}
+        <tr>
+            {if (!$permission->childPermissions->isEmpty())}
+            <td class="item-toggle" data-id="{$permission->id}"><i class="fa fa-plus"></i></td>
+            {else/}
+            <td></td>
+            {/if}
+            <td>{$permission->name}</td>
+            <td><i class="{$permission->icon}"></i></td>
+            <td>{$permission->url}</td>
+            <td>{$permission->display_text}</td>
+            <td>{$permission->status_text}</td>
+            <td>{$permission->create_time}</td>
+            <td>
+                <a href="{:url('admin/permission/edit',array('id' => $permission->id))}">修改</a>
+                <a class="del-item" href="javascript:;"  data-id='{$permission->id}'>删除</a>
+            </td>
+        </tr>
+        {if (!$permission->childPermissions->isEmpty())}
+            {volist name="permission['childPermissions']" id="permission"}
+            <tr class="item-parent{$permission->pid}" style="display:none;">
+                {if (!$permission->childPermissions->isEmpty())}
+                <td class="item-toggle" data-id="{$permission->id}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-plus"></i></td>
+                {else/}
+                <td></td>
+                {/if}
+                <td>&nbsp;├&nbsp;{$permission->name}</td>
+                <td><i class="{$permission->icon}"></i></td>
+                <td>{$permission->url}</td>
+                <td>{$permission->display_text}</td>
+                <td>{$permission->status_text}</td>
+                <td>{$permission->create_time}</td>
+                <td>
+                    <a href="{:url('admin/permission/edit',array('id' => $permission->id))}">修改</a>
+                    <a class="del-item" href="javascript:;"  data-id='{$permission->id}'>删除</a>
+                </td>
+            </tr> 
+            {if (!$permission->childPermissions->isEmpty())}
+                {volist name="permission['childPermissions']" id="permission"}
+                <tr class="item-parent{$permission->pid}" style="display:none;">
+                    <td></td>
+                    <td>&nbsp;│&nbsp;├&nbsp;{$permission->name}</td>
+                    <td><i class="{$permission->icon}"></i></td>
+                    <td>{$permission->url}</td>
+                    <td>{$permission->display_text}</td>
+                    <td>{$permission->status_text}</td>
+                    <td>{$permission->create_time}</td>
+                    <td>
+                        <a href="{:url('admin/permission/edit',array('id' => $permission->id))}">修改</a>
+                        <a class="del-item" href="javascript:;"  data-id='{$permission->id}'>删除</a>
+                    </td>
+                </tr> 
+                {/volist}       
+            {/if}             
+            {/volist}                  
+        {/if}
+        {/volist}
+    </table>    
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    $('.del-item').click(function(){
+        if(confirm('删除?')){
+            $.ajax({
+                url: "{:url('admin/permission/delete')}",
+                data: {id:$(this).data('id')},
+                method: 'post',
+                dateType: 'json',
+                success: function(res){
+                    if(res.status == 0){
+                        toastr.success(res.message)
+                        setTimeout(function(){
+                            location.reload();
+                        }, 2000);
+                    }else{
+                        toastr.error(res.message)
+                    }
+                }
+            });
+        }
+    })
+    $('.item-toggle').click(function(){
+        var id = $(this).data('id');
+        if($(this).hasClass('active')){
+            $('.item-parent' + id).hide();
+            $(this).removeClass('active');
+            $(this).find('i').eq(0).removeClass('fa-minus');
+            $(this).find('i').eq(0).addClass('fa-plus');            
+            //关闭子项
+            $('.item-parent' + id).each(function(k,v){
+                var td = $(this).find('td').eq(0);
+                var tdId = td.data('id');
+                $('.item-parent' + tdId).hide();
+                td.removeClass('active');
+                td.find('i').eq(0).removeClass('fa-minus');
+                td.find('i').eq(0).addClass('fa-plus');
+            })
+        }else{
+            $(this).addClass('active');
+            $(this).find('i').eq(0).removeClass('fa-plus');
+            $(this).find('i').eq(0).addClass('fa-minus');
+            $('.item-parent' + id).show();
+        }
+    })
+</script>
+{/block}

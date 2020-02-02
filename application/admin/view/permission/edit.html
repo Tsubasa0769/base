@@ -1,0 +1,100 @@
+{extend name="public/main" /}
+{block name="title"}编辑权限 - 管理后台{/block}
+{block name="content-title"}编辑权限{/block}
+{block name="content"}
+    <ul id="myTab" class="nav nav-tabs bar_tabs">
+        <li>
+            <a href="{:url('admin/permission/index')}">权限列表</a>
+        </li>
+        <li class="active">
+            <a href="{:url('admin/permission/edit',array('id' => $permission->id))}">编辑权限</a>
+        </li>
+    </ul>
+    <form id="myForm" class="form-horizontal" action="" method="post">
+        <input type="hidden" name="id" value="{$permission->id}">
+        <table class="table table-striped table-bordered table-hover">
+            <tr>
+                <th>父级</th>
+                <td>
+                    <select class="form-control" name="pid">
+                        <option value="0" {if ($permission->pid == 0)} selected {/if}>无</option>
+                        {volist name="permissions" id="selpermission"}
+                        <option value="{$selpermission->id}" {if ($permission->pid == $selpermission->id)} selected {/if}>{$selpermission->name}</option>
+                        {if (!$selpermission->childPermissions->isEmpty())}
+                            {volist name="selpermission['childPermissions']" id="selpermission"}
+                            <option value="{$selpermission->id}" {if ($permission->pid == $selpermission->id)} selected {/if}>&nbsp;├&nbsp;{$selpermission->name}</option>
+                            {/volist}
+                        {/if}
+                        {/volist}
+                    </select>
+                </td>
+            </tr>            
+            <tr>
+                <th>名称</th>
+                <td>
+                    <input class="form-control" type="text" name="name" value="{$permission->name}">
+                </td>
+            </tr>
+            <tr>
+                <th>图标</th>
+                <td>
+                    <input class="form-control" type="text" name="icon" value="{$permission->icon}">
+                </td>
+            </tr>   
+            <tr>
+                <th>访问地址</th>
+                <td>
+                    <input class="form-control" type="text" name="url" value="{$permission->url}">
+                </td>
+            </tr>
+            <tr>
+                <th>排序(正序)</th>
+                <td>
+                    <input class="form-control" type="text" name="sort" value="{$permission->sort}">
+                </td>
+            </tr>            
+            <tr>
+                <th>显示</th>
+                <td>
+                    <input type="checkbox" class="js-switch" {if ($permission->display == 1)}checked{/if} name="display" value="1" />
+                </td>
+            </tr>                                  
+            <tr>
+                <th>启用</th>
+                <td>
+                    <input type="checkbox" class="js-switch" {if ($permission->status == 1)}checked{/if} name="status" value="1" />
+                </td>
+            </tr>            
+            <tr>
+                <th></th>
+                <td>
+                    <input class="btn btn-success" type="submit" value="提交">
+                </td>
+            </tr>            
+        </table>
+    </form>    
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    $("#myForm").submit(function(e) { 
+        var data = $("form").serialize();
+        $.ajax({
+            url: "{:url('admin/permission/update')}",
+            data: data,
+            method: 'post',
+            dateType: 'json',
+            success: function(res){
+                if(res.status == 0){
+                    toastr.success(res.message)
+                    setTimeout(function(){
+                        location.reload();
+                    }, 2000);
+                }else{
+                    toastr.error(res.message)
+                }
+            }
+        });
+        return false;
+    })
+</script>
+{/block}

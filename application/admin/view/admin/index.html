@@ -1,0 +1,61 @@
+{extend name="public/main" /}
+{block name="title"}管理员列表 - 管理后台{/block}
+{block name="content-title"}管理员列表{/block}
+{block name="content"}
+    <ul id="myTab" class="nav nav-tabs bar_tabs">
+        <li class="active">
+            <a href="{:url('admin/admin/index')}">管理员列表</a>
+        </li>
+        <li>
+            <a href="{:url('admin/admin/create')}">添加管理员</a>
+        </li>
+    </ul>
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <th width="5%">id</th>
+            <th>名称</th>
+            <th>邮箱</th>
+            <th>状态</th>
+            <th width="15%">创建日期</th>
+            <th width="10%">操作</th>
+        </tr>
+        {volist name="admins" id="admin"}
+        <tr>
+            <td>{$admin->id}</td>
+            <td>{$admin->name}</td>
+            <td>{$admin->email}</td>
+            <td>{$admin->status_text}</td>
+            <td>{$admin->create_time}</td>
+            <td>
+                <a href="{:url('admin/admin/edit',array('id' => $admin->id))}">修改</a>
+                <a class="del-item" href="javascript:;"  data-id='{$admin->id}'>删除</a>
+            </td>
+        </tr>
+        {/volist}
+    </table>    
+    {$admins|raw}
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    $('.del-item').click(function(){
+        if(confirm('删除?')){
+            $.ajax({
+                url: "{:url('admin/admin/delete')}",
+                data: {id:$(this).data('id')},
+                method: 'post',
+                dataType: 'json',
+                success: function(res){
+                    if(res.status == 0){
+                        toastr.success(res.message)
+                        setTimeout(function(){
+                            location.reload();
+                        }, 2000);
+                    }else{
+                        toastr.error(res.message)
+                    }
+                }
+            });
+        }
+    })
+</script>
+{/block}
