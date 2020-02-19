@@ -1,0 +1,15 @@
+<ul id="myTab" class="nav nav-tabs bar_tabs">
+    <li class="{if $actionName == 'index'}active{/if}">
+        <a href="{:url('admin/role/index')}">角色列表</a>
+    </li>
+    {if $actionName != 'edit'}
+    <li class="{if $actionName == 'create'}active{/if}">
+        <a href="{:url('admin/role/create')}">添加角色</a>
+    </li>
+    {/if}
+    {if $actionName == 'edit'}
+    <li class="active">
+        <a href="{:url('admin/role/edit',array('id' => $role->id))}">编辑角色</a>
+    </li>   
+    {/if} 
+</ul>

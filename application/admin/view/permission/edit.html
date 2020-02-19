@@ -2,14 +2,7 @@
 {block name="title"}编辑权限 - 管理后台{/block}
 {block name="content-title"}编辑权限{/block}
 {block name="content"}
-    <ul id="myTab" class="nav nav-tabs bar_tabs">
-        <li>
-            <a href="{:url('admin/permission/index')}">权限列表</a>
-        </li>
-        <li class="active">
-            <a href="{:url('admin/permission/edit',array('id' => $permission->id))}">编辑权限</a>
-        </li>
-    </ul>
+{include file="permission/include/tab" /}
     <form id="myForm" class="form-horizontal" action="" method="post">
         <input type="hidden" name="id" value="{$permission->id}">
         <table class="table table-striped table-bordered table-hover">

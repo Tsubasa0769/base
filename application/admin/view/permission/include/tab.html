@@ -1,0 +1,15 @@
+<ul id="myTab" class="nav nav-tabs bar_tabs">
+    <li class="{if $actionName == 'index'}active{/if}">
+        <a href="{:url('admin/permission/index')}">权限列表</a>
+    </li>
+    {if $actionName != 'edit'}
+    <li class="{if $actionName == 'create'}active{/if}">
+        <a href="{:url('admin/permission/create')}">添加权限</a>
+    </li>
+    {/if}
+    {if $actionName == 'edit'}
+    <li class="active">
+        <a href="{:url('admin/permission/edit',array('id' => $permission->id))}">编辑权限</a>
+    </li>   
+    {/if} 
+</ul>

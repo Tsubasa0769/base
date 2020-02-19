@@ -6,7 +6,7 @@ use think\facade\Request;
 use app\admin\controller\Auth;
 class Base extends Controller {
 	protected $_auth;
-    public function initialize() {
+    public function initialize() {   	
     	$this->_auth = new Auth();
     	if(!$this->isLogin()){
 			$this->redirect('admin/login/index'); 
@@ -22,6 +22,8 @@ class Base extends Controller {
 			$menus = $this->_auth->getMenus(session('admin.id'));
 			View::share('menus', $menus);			
 		}
+        $actionName = request()->action();
+        $this->assign('actionName', $actionName); 		
     }	
 
     //判断是否登录
