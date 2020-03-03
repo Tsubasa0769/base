@@ -12,13 +12,11 @@ class ApiHandleException extends  Handle {
 
     public function render(\Exception $e) {
 
-        if(config('app_debug') == true) {
-            return parent::render($e);
-        }
         if ($e instanceof ApiException) {
             $this->httpCode = $e->httpCode;
             // Log::write($e->getMessage(),'error');
+            return  show(0, $e->getMessage(), [], $this->httpCode);
         }
-        return  show(0, $e->getMessage(), [], $this->httpCode);
+        return parent::render($e);
     }
 }
