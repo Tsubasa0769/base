@@ -29,7 +29,7 @@ function show($status, $message, $data=[], $httpCode=200) {
     return json($data, $httpCode);
 }
 
-//数组递归
+//数组递归 上下级结构
 function arrayDiGui($arr, $pKey, $key, $pid=0){
     $tmp = [];
     foreach($arr as $v){
@@ -41,6 +41,18 @@ function arrayDiGui($arr, $pKey, $key, $pid=0){
     return $tmp;
 }
 
+//数组递归 平行结构
+function treeDiGui($arr, $pKey, $key, $pid=0, $level=0){
+    static $tmp = [];
+    foreach($arr as $v){
+        if($v[$key] == $pid){
+            $v['level'] = $level;
+            $tmp[] = $v;
+            treeDiGui($arr, $pKey, $key, $v[$pKey], $level+1);
+        }
+    }
+    return $tmp;
+}
 /**
 * 发起请求
 * @param  strin $url  url地址
